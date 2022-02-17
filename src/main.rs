@@ -5,7 +5,7 @@ extern crate minidom;
 
 use clap::Parser;
 use minidom::Element;
-use std::fs;
+use minidom::quick_xml;
 use std::process;
 
 mod sds;
@@ -21,8 +21,8 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    let contents = fs::read_to_string(&args.filepath).expect("Failed to open the input file");
-    let root: Element = contents.parse().unwrap();
+    let mut reader = quick_xml::Reader::from_file(&args.filepath).expect("Failed to open the input file");
+    let root = Element::from_reader(&mut reader).unwrap();
     let result = sds::DataStreamCollection::from_xml(&root);
     match result {
         Ok(data_stream_collection) => {
