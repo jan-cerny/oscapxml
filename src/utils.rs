@@ -30,6 +30,25 @@ pub fn get_attr_default<T: std::str::FromStr>(
     Ok(value)
 }
 
+pub fn get_attr_default_bool(el: &Element, name: &str, default: bool) -> Result<bool, String> {
+    let value = match el.attr(name) {
+        Some(val) => match val {
+            "true" | "1" => true,
+            "false" | "0" => false,
+            _ => {
+                return Err(format!(
+                    "Element '{}' attribute '{}' can't parse value '{}'.",
+                    el.name(),
+                    name,
+                    val
+                ))
+            }
+        },
+        None => default,
+    };
+    Ok(value)
+}
+
 pub fn get_attr_default_options(
     el: &Element,
     name: &str,

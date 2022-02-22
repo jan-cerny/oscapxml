@@ -38,7 +38,7 @@ impl Benchmark {
             ));
         }
         let id = require_attr(benchmark_el, "id")?;
-        let resolved = get_attr_default(benchmark_el, "resolved", false)?;
+        let resolved = get_attr_default_bool(benchmark_el, "resolved", false)?;
         let style = get_attr(benchmark_el, "style");
         let style_href = get_attr(benchmark_el, "style-href");
         let mut statuses = Vec::new();
@@ -354,7 +354,7 @@ struct Profile {
 impl Profile {
     pub fn from_xml(el: &Element) -> Result<Profile, String> {
         let id = require_attr(el, "id")?;
-        let prohibit_changes = get_attr_default(el, "prohibitChanges", false)?;
+        let prohibit_changes = get_attr_default_bool(el, "prohibitChanges", false)?;
         let abstract_ = get_attr_default(el, "abstract", false)?;
         let note_tag = get_attr(el, "note-tag");
         let extends = get_attr(el, "extends");
@@ -462,11 +462,11 @@ struct Group {
 impl Group {
     pub fn from_xml(el: &Element) -> Result<Group, String> {
         let id = require_attr(el, "id")?;
-        let abstract_ = get_attr_default(el, "abstract", false)?;
+        let abstract_ = get_attr_default_bool(el, "abstract", false)?;
         let extends = get_attr(el, "extends");
-        let hidden = get_attr_default(el, "hidden", false)?;
-        let prohibit_changes = get_attr_default(el, "prohibitChanges", false)?;
-        let selected = get_attr_default(el, "selected", true)?;
+        let hidden = get_attr_default_bool(el, "hidden", false)?;
+        let prohibit_changes = get_attr_default_bool(el, "prohibitChanges", false)?;
+        let selected = get_attr_default_bool(el, "selected", true)?;
         let weight = get_attr_default(el, "weight", 1.0)?;
         let cluster_id = get_attr(el, "cluster-id");
 
@@ -581,11 +581,11 @@ struct Rule {
 impl Rule {
     pub fn from_xml(el: &Element) -> Result<Rule, String> {
         let id = require_attr(el, "id")?;
-        let abstract_ = get_attr_default(el, "abstract", false)?;
+        let abstract_ = get_attr_default_bool(el, "abstract", false)?;
         let extends = get_attr(el, "extends");
-        let hidden = get_attr_default(el, "hidden", false)?;
-        let prohibit_changes = get_attr_default(el, "prohibitChanges", false)?;
-        let selected = get_attr_default(el, "selected", true)?;
+        let hidden = get_attr_default_bool(el, "hidden", false)?;
+        let prohibit_changes = get_attr_default_bool(el, "prohibitChanges", false)?;
+        let selected = get_attr_default_bool(el, "selected", true)?;
         let weight = get_attr_default(el, "weight", 1.0)?;
         let cluster_id = get_attr(el, "cluster-id");
         let role = get_attr_default_options(
@@ -600,7 +600,7 @@ impl Rule {
             String::from("unknown"),
             vec!["unknown", "info", "low", "medium", "high"],
         )?;
-        let multiple = get_attr_default(el, "multiple", false)?;
+        let multiple = get_attr_default_bool(el, "multiple", false)?;
         let mut statuses = Vec::new();
         let mut version = None;
         let mut titles = Vec::new();
